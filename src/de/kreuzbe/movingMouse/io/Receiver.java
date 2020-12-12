@@ -25,11 +25,10 @@ public class Receiver {
             if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_MOVED) {
                 robot.mouseMove(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
             } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_PRESSED) {
-                robot.mousePress(Integer.parseInt(args[3]));
-                System.err.println(".");
+                robot.mousePress(MouseEvent.getMaskForButton(Integer.parseInt(args[3])));
+
             } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_RELEASED) {
-                robot.mouseRelease(Integer.parseInt(args[3]));
-                System.err.println(".");
+                robot.mouseRelease(MouseEvent.getMaskForButton(Integer.parseInt(args[3])));
             }
         });
 
