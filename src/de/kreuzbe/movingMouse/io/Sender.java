@@ -62,13 +62,17 @@ public class Sender implements AWTEventListener {
         if (event.getClass() == MouseEvent.class) {
             MouseEvent me = (MouseEvent) event;
             server.getPrintWriter().println(event.getID() + " " + me.getXOnScreen() + " " + me.getYOnScreen() + " " + me.getButton());
+            me.consume();
         } else if (event.getClass() == MouseWheelEvent.class) {
             MouseWheelEvent mwe = (MouseWheelEvent) event;
             server.getPrintWriter().println(event.getID() + " " + mwe.getWheelRotation());
+            mwe.consume();
         } else if (event.getClass() == KeyEvent.class) {
             KeyEvent ke = (KeyEvent) event;
             server.getPrintWriter().println(event.getID() + " " + ke.getExtendedKeyCode());
+            ke.consume();
         }
         System.out.println(event.paramString());
+
     }
 }

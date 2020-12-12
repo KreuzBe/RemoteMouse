@@ -16,7 +16,7 @@ public class Receiver {
 
     public Receiver(Client client) {
         f = new JFrame();
-        initFrame();
+//        initFrame();
 
 
         this.client = client;
@@ -28,7 +28,6 @@ public class Receiver {
                 robot.mouseMove(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
             } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_PRESSED) {
                 robot.mousePress(MouseEvent.getMaskForButton(Integer.parseInt(args[3])));
-
             } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_RELEASED) {
                 robot.mouseRelease(MouseEvent.getMaskForButton(Integer.parseInt(args[3])));
             } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_WHEEL) {
