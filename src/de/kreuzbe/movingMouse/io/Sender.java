@@ -5,6 +5,7 @@ import de.kreuzbe.movingMouse.net.Server;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -21,7 +22,7 @@ public class Sender implements AWTEventListener {
     public Sender(Server server) {
         this.server = server;
 
-        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK);
+        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
         f = new JFrame();
         try {
             robot = new Robot();
@@ -64,6 +65,9 @@ public class Sender implements AWTEventListener {
         } else if (event.getClass() == MouseWheelEvent.class) {
             MouseWheelEvent mwe = (MouseWheelEvent) event;
             server.getPrintWriter().println(event.getID() + " " + mwe.getWheelRotation());
+        } else if (event.getClass() == KeyEvent.class) {
+            KeyEvent ke = (KeyEvent) event;
+            server.getPrintWriter().println(event.getID() + " " + ke.getExtendedKeyCode());
         }
         System.out.println(event.paramString());
     }

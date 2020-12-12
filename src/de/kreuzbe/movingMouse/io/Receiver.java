@@ -4,6 +4,7 @@ import de.kreuzbe.movingMouse.net.Client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.function.Consumer;
@@ -32,6 +33,10 @@ public class Receiver {
                 robot.mouseRelease(MouseEvent.getMaskForButton(Integer.parseInt(args[3])));
             } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_WHEEL) {
                 robot.mouseWheel(Integer.parseInt(args[1]));
+            } else if (Integer.parseInt(args[0]) == KeyEvent.KEY_PRESSED) {
+                robot.keyPress(Integer.parseInt(args[1]));
+            } else if (Integer.parseInt(args[0]) == KeyEvent.KEY_RELEASED) {
+                robot.keyRelease(Integer.parseInt(args[1]));
             }
         });
 
