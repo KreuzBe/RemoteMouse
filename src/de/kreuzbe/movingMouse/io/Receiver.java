@@ -22,9 +22,9 @@ public class Receiver {
             System.out.println(input);
             if (input.isBlank())
                 return;
-            String[] args = input.split("\\|");
-            if (!args[0].isBlank() && Integer.getInteger(args[0]) == MouseEvent.MOUSE_MOVED) {
-                robot.mouseMove(Integer.getInteger(args[1]), Integer.getInteger(args[2]));
+            String[] args = input.split(" ");
+            if (!args[0].isBlank() && Integer.parseInt(args[0]) == MouseEvent.MOUSE_MOVED) {
+                robot.mouseMove(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
                 System.err.println(".");
             }
         });
