@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class Client {
 
@@ -16,6 +17,8 @@ public class Client {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+
+    private Consumer<String> inputConsumer;
 
     public Client(String host, int port) {
         this.host = host;
@@ -31,15 +34,16 @@ public class Client {
             listeningThread.setDaemon(true);
             listeningThread.start();
 
-            Scanner sc = new Scanner(System.in);
-            while (sc.hasNext()) {
-                out.println(sc.nextLine());
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void setInputConsumer(Consumer<String> inputConsumer) {
+        this.inputConsumer = inputConsumer;
     }
 
     private void listen() {
@@ -49,7 +53,10 @@ public class Client {
             if (!socket.isConnected())
                 break;
             try {
-                System.out.println(in.readLine());
+                if (inputConsumer != null)
+                    inputConsumer.accept(in.readLine());
+                else
+                    System.out.println(">> " + in.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
                 break;
@@ -62,6 +69,10 @@ public class Client {
             e.printStackTrace();
         }
 
+    }
+
+    public void write(String s) {
+        out.println(s);
     }
 
 
