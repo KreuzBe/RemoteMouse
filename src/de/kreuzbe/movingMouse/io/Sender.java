@@ -57,9 +57,9 @@ public class Sender implements AWTEventListener {
             }
         }
         System.out.println(event.getClass());
-        if (event.getID() == MouseEvent.MOUSE_MOVED) {
+        if (event.getClass() == MouseEvent.class) {
             MouseEvent me = (MouseEvent) event;
-            server.getPrintWriter().println(event.getID() + " " + me.getXOnScreen() + " " + me.getYOnScreen());
+            server.getPrintWriter().println(event.getID() + " " + me.getXOnScreen() + " " + me.getYOnScreen() + " " + me.getButton());
         }
         System.out.println(event.paramString());
     }

@@ -19,12 +19,16 @@ public class Receiver {
 
         this.client = client;
         client.setInputConsumer((input) -> {
-            System.out.println(input);
             if (input.isBlank())
                 return;
             String[] args = input.split(" ");
-            if (!args[0].isBlank() && Integer.parseInt(args[0]) == MouseEvent.MOUSE_MOVED) {
+            if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_MOVED) {
                 robot.mouseMove(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_PRESSED) {
+                robot.mousePress(Integer.parseInt(args[3]));
+                System.err.println(".");
+            } else if (Integer.parseInt(args[0]) == MouseEvent.MOUSE_RELEASED) {
+                robot.mouseRelease(Integer.parseInt(args[3]));
                 System.err.println(".");
             }
         });
