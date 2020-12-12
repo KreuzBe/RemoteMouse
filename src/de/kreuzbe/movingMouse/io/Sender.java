@@ -70,7 +70,7 @@ public class Sender implements AWTEventListener {
             } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) {
                 f.setBounds(0, 0, 1, (int) tk.getScreenSize().getHeight());
                 robot.mouseMove(1, me.getYOnScreen());
-                server.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 1));
+                server.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 2));
                 hasFocus = true;
             }
         }
