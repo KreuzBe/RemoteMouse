@@ -4,10 +4,13 @@ import de.kreuzbe.movingMouse.net.Server;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.IOException;
 
 public class Sender implements AWTEventListener {
     private static Toolkit tk = Toolkit.getDefaultToolkit();
@@ -50,9 +53,14 @@ public class Sender implements AWTEventListener {
             MouseEvent me = (MouseEvent) event;
             if (hasFocus && me.getXOnScreen() <= 1) {
                 f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                try {
+                    server.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 1) + " " + tk.getSystemClipboard().getData(DataFlavor.stringFlavor));
+                } catch (UnsupportedFlavorException | IOException e) {
+                    e.printStackTrace();
+                }
                 hasFocus = false;
                 robot.mouseMove((int) (tk.getScreenSize().getWidth() - 1), me.getYOnScreen());
-            } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) { // TODO WHEN MOUSE IS AT CLIENTS RIGHT SCREEN SIDE
+            } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) {
                 f.setBounds(0, 0, 1, (int) tk.getScreenSize().getHeight());
                 robot.mouseMove(1, me.getYOnScreen());
                 hasFocus = true;
@@ -73,6 +81,5 @@ public class Sender implements AWTEventListener {
             ke.consume();
         }
         System.out.println(event.paramString());
-
     }
 }
