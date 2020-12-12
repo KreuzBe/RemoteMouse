@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public class Sender implements AWTEventListener {
     private static Toolkit tk = Toolkit.getDefaultToolkit();
@@ -20,7 +21,7 @@ public class Sender implements AWTEventListener {
     public Sender(Server server) {
         this.server = server;
 
-        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK);
+        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK);
         f = new JFrame();
         try {
             robot = new Robot();
@@ -60,6 +61,9 @@ public class Sender implements AWTEventListener {
         if (event.getClass() == MouseEvent.class) {
             MouseEvent me = (MouseEvent) event;
             server.getPrintWriter().println(event.getID() + " " + me.getXOnScreen() + " " + me.getYOnScreen() + " " + me.getButton());
+        } else if (event.getClass() == MouseWheelEvent.class) {
+            MouseWheelEvent mwe = (MouseWheelEvent) event;
+            server.getPrintWriter().println(event.getID() + " " + mwe.getWheelRotation());
         }
         System.out.println(event.paramString());
     }
