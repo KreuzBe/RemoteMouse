@@ -69,7 +69,7 @@ public class Sender implements AWTEventListener {
             mwe.consume();
         } else if (event.getClass() == KeyEvent.class) {
             KeyEvent ke = (KeyEvent) event;
-            server.getPrintWriter().println(event.getID() + " " + ke.getExtendedKeyCode());
+            server.getPrintWriter().println(event.getID() + " " + ke.getKeyCode());
             ke.consume();
         }
         System.out.println(event.paramString());

@@ -16,7 +16,7 @@ public class Receiver {
 
     public Receiver(Client client) {
         f = new JFrame();
-//        initFrame();
+        initFrame();
 
 
         this.client = client;
@@ -48,14 +48,14 @@ public class Receiver {
 
     private void initFrame() {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setBounds(0, 0, 10, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+        f.setBounds(0, 0, 10, 10);
         f.setResizable(true);
         f.setAlwaysOnTop(true);
         f.setUndecorated(true);
         f.setOpacity(0.2f);
         f.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         f.setVisible(true);
-    }
 
+    }
 
 }
