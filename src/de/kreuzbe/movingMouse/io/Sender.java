@@ -44,24 +44,19 @@ public class Sender implements AWTEventListener {
 
     @Override
     public void eventDispatched(AWTEvent event) {
-        switch (event.getID()) {
-            case MouseEvent.MOUSE_MOVED: {
-                MouseEvent me = (MouseEvent) event;
-                if (hasFocus && me.getXOnScreen() <= 1) {
-                    f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                    hasFocus = false;
-                    robot.mouseMove((int) (tk.getScreenSize().getWidth() - 1), me.getYOnScreen());
-                } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) { // TODO WHEN MOUSE IS AT CLIENTS RIGHT SCREEN SIDE
-                    f.setBounds(0, 0, 1, (int) tk.getScreenSize().getHeight());
-                    robot.mouseMove(1, me.getYOnScreen());
-                    hasFocus = true;
-                }
-                break;
-            }
-            default: {
-                server.getPrintWriter().println(event.paramString());
-                System.out.println(event.paramString());
+        if (event.getID() == MouseEvent.MOUSE_MOVED) {
+            MouseEvent me = (MouseEvent) event;
+            if (hasFocus && me.getXOnScreen() <= 1) {
+                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                hasFocus = false;
+                robot.mouseMove((int) (tk.getScreenSize().getWidth() - 1), me.getYOnScreen());
+            } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) { // TODO WHEN MOUSE IS AT CLIENTS RIGHT SCREEN SIDE
+                f.setBounds(0, 0, 1, (int) tk.getScreenSize().getHeight());
+                robot.mouseMove(1, me.getYOnScreen());
+                hasFocus = true;
             }
         }
+        server.getPrintWriter().println(event.paramString());
+        System.out.println(event.paramString());
     }
 }
