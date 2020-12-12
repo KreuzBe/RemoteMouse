@@ -5,6 +5,7 @@ import de.kreuzbe.movingMouse.net.Server;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
@@ -24,6 +25,12 @@ public class Sender implements AWTEventListener {
 
     public Sender(Server server) {
         this.server = server;
+
+        server.setInputConsumer((input) -> {
+            if (input.startsWith((AWTEvent.RESERVED_ID_MAX + 1) + " ")) {
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(input.split(" ", 2)[1]), null);
+            }
+        });
 
         tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
         f = new JFrame();
@@ -63,6 +70,7 @@ public class Sender implements AWTEventListener {
             } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) {
                 f.setBounds(0, 0, 1, (int) tk.getScreenSize().getHeight());
                 robot.mouseMove(1, me.getYOnScreen());
+                server.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 1));
                 hasFocus = true;
             }
         }

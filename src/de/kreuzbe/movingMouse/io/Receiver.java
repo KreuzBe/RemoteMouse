@@ -4,13 +4,12 @@ import de.kreuzbe.movingMouse.net.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.util.function.Consumer;
+import java.io.IOException;
 
 public class Receiver {
     private JFrame f;
@@ -28,8 +27,14 @@ public class Receiver {
                 return;
 
             if (input.startsWith((AWTEvent.RESERVED_ID_MAX + 1) + " ")) {
-                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(input.split(" ")[1]), null);
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(input.split(" ", 2)[1]), null);
                 return;
+            } else if (input.equals(AWTEvent.RESERVED_ID_MAX + 2 + "")) {
+                try {
+                    client.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 1) + " " + Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
+                } catch (UnsupportedFlavorException | IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             String[] args = input.split(" ");

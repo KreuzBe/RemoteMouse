@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.function.Consumer;
 
 public class Server {
     private Thread listeningThread;
@@ -16,6 +17,12 @@ public class Server {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+
+    private Consumer<String> inputConsumer;
+
+    public void setInputConsumer(Consumer<String> inputConsumer) {
+        this.inputConsumer = inputConsumer;
+    }
 
     public Server(int port) {
         this.port = port;
@@ -49,8 +56,10 @@ public class Server {
         while (isRunning) {
             if (!clientSocket.isConnected())
                 break;
-            
+
             try {
+                if (inputConsumer != null)
+                    inputConsumer.accept(in.readLine());
                 System.out.println(in.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
