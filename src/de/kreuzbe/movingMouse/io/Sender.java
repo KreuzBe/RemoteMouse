@@ -59,7 +59,7 @@ public class Sender implements AWTEventListener {
     private void initFrame() {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
-        f.setResizable(true);
+        f.setResizable(false);
         f.setAlwaysOnTop(true);
         f.setUndecorated(true);
         f.setOpacity(0.2f);
@@ -70,7 +70,15 @@ public class Sender implements AWTEventListener {
     @Override
     public void eventDispatched(AWTEvent event) {
         if (event instanceof MouseEvent) {
-            System.out.println(event);
+            MouseEvent me = (MouseEvent) event;
+            if (me.getXOnScreen() < 10 && hasFocus) {
+                hasFocus = false;
+                f.setExtendedState(Frame.MAXIMIZED_BOTH);
+                robot.mouseMove((int) tk.getScreenSize().getWidth(), me.getYOnScreen());
+            } else if (me.getXOnScreen() > tk.getScreenSize().getWidth() - 10 && !hasFocus) {
+                hasFocus = true;
+                f.setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
+            }
         }
         try {
             server.send(event);
