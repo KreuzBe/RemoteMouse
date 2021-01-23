@@ -69,8 +69,13 @@ public class Sender implements AWTEventListener {
 
     @Override
     public void eventDispatched(AWTEvent event) {
-        if (event.getID() == AWTEvent.KEY_EVENT_MASK) {
+        if (event instanceof MouseEvent) {
             System.out.println(event);
+        }
+        try {
+            server.send(event);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
