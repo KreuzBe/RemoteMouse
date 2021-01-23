@@ -9,6 +9,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
 public class Receiver {
@@ -20,10 +21,25 @@ public class Receiver {
         f = new JFrame();
         initFrame();
 
-
         this.client = client;
         client.setInputConsumer((input) -> {
-
+            if (input instanceof KeyEvent) {
+                KeyEvent ke = (KeyEvent) input;
+                if (ke.getID() == KeyEvent.KEY_PRESSED)
+                    robot.keyPress(ke.getKeyCode());
+                else if (ke.getID() == KeyEvent.KEY_PRESSED)
+                    robot.keyRelease(ke.getKeyCode());
+            } else if (input instanceof MouseEvent) {
+                MouseEvent me = (MouseEvent) input;
+                if (me.getID() == MouseEvent.MOUSE_MOVED || me.getID() == MouseEvent.MOUSE_DRAGGED)
+                    robot.mouseMove(me.getXOnScreen(), me.getYOnScreen());
+                else if (me.getID() == MouseEvent.MOUSE_PRESSED)
+                    robot.mousePress(me.getButton());
+                else if (me.getID() == MouseEvent.MOUSE_RELEASED)
+                    robot.mouseRelease(me.getButton());
+                else if (me.getID() == MouseEvent.MOUSE_WHEEL)
+                    robot.mouseWheel(((MouseWheelEvent) me).getWheelRotation());
+            }
         });
 
         try {
@@ -42,7 +58,5 @@ public class Receiver {
         f.setOpacity(0.2f);
         f.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         f.setVisible(true);
-
     }
-
 }

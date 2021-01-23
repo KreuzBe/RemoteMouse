@@ -25,18 +25,34 @@ public class Sender implements AWTEventListener {
 
     public Sender(Server server) {
         this.server = server;
-
-        server.setInputConsumer((input) -> {
-
-        });
-
-        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
-        f = new JFrame();
         try {
             robot = new Robot();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        server.setInputConsumer((input) -> {
+            if (input instanceof KeyEvent) {
+                KeyEvent ke = (KeyEvent) input;
+                if (ke.getID() == KeyEvent.KEY_PRESSED)
+                    robot.keyPress(ke.getKeyCode());
+                else if (ke.getID() == KeyEvent.KEY_PRESSED)
+                    robot.keyRelease(ke.getKeyCode());
+            } else if (input instanceof MouseEvent) {
+                MouseEvent me = (MouseEvent) input;
+                if (me.getID() == MouseEvent.MOUSE_MOVED || me.getID() == MouseEvent.MOUSE_DRAGGED)
+                    robot.mouseMove(me.getXOnScreen(), me.getYOnScreen());
+                else if (me.getID() == MouseEvent.MOUSE_PRESSED)
+                    robot.mousePress(me.getButton());
+                else if (me.getID() == MouseEvent.MOUSE_RELEASED)
+                    robot.mouseRelease(me.getButton());
+                else if (me.getID() == MouseEvent.MOUSE_WHEEL)
+                    robot.mouseWheel(((MouseWheelEvent) me).getWheelRotation());
+            }
+        });
+
+        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
+        f = new JFrame();
+
         initFrame();
     }
 
