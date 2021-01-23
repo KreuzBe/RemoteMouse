@@ -35,9 +35,9 @@ public class Receiver {
                 if (me.getID() == MouseEvent.MOUSE_MOVED || me.getID() == MouseEvent.MOUSE_DRAGGED)
                     robot.mouseMove(me.getXOnScreen(), me.getYOnScreen());
                 else if (me.getID() == MouseEvent.MOUSE_PRESSED)
-                    robot.mousePress(InputEvent.getMaskForButton(me.getButton()));
+                    robot.mousePress(me.getModifiersEx());
                 else if (me.getID() == MouseEvent.MOUSE_RELEASED)
-                    robot.mouseRelease(InputEvent.getMaskForButton(me.getButton()));
+                    robot.mouseRelease(MouseEvent.getMaskForButton(me.getButton()));
                 else if (me.getID() == MouseEvent.MOUSE_WHEEL)
                     robot.mouseWheel(((MouseWheelEvent) me).getWheelRotation());
             }

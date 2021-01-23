@@ -51,6 +51,7 @@ public class Client {
                     System.out.println(">> " + in.readObject().toString());
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+                System.exit(0);
                 break;
             }
         }
