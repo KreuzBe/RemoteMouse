@@ -1,9 +1,6 @@
 package de.kreuzbe.movingMouse.net;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,12 +12,12 @@ public class Server {
     private int port;
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
+    private ObjectOutput out;
+    private ObjectInputStream in;
 
-    private Consumer<String> inputConsumer;
+    private Consumer<Object> inputConsumer;
 
-    public void setInputConsumer(Consumer<String> inputConsumer) {
+    public void setInputConsumer(Consumer<Object> inputConsumer) {
         this.inputConsumer = inputConsumer;
     }
 
@@ -32,24 +29,16 @@ public class Server {
             clientSocket = serverSocket.accept();
             System.out.println("Connected!");
 
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
+            out = new ObjectOutputStream(clientSocket.getOutputStream());
+            in = new ObjectInputStream(clientSocket.getInputStream());
 
             listeningThread = new Thread(this::listen, "Listening Thread");
             listeningThread.setDaemon(true);
             listeningThread.start();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public PrintWriter getPrintWriter() {
-        return out;
-    }
-
 
     private void listen() { // TODO LISTEN AS LONG AS YOU CAN
         boolean isRunning = true;
@@ -59,9 +48,9 @@ public class Server {
 
             try {
                 if (inputConsumer != null)
-                    inputConsumer.accept(in.readLine());
-                System.out.println(in.readLine());
-            } catch (IOException e) {
+                    inputConsumer.accept(in.readObject());
+                System.out.println(in.readObject());
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 break;
             }
@@ -71,7 +60,5 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

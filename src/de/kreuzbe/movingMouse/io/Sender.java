@@ -27,9 +27,7 @@ public class Sender implements AWTEventListener {
         this.server = server;
 
         server.setInputConsumer((input) -> {
-            if (input.startsWith((AWTEvent.RESERVED_ID_MAX + 1) + " ")) {
-                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(input.split(" ", 2)[1]), null);
-            }
+
         });
 
         tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
@@ -53,41 +51,10 @@ public class Sender implements AWTEventListener {
         f.setVisible(true);
     }
 
-
     @Override
     public void eventDispatched(AWTEvent event) {
-        if (event.getID() == MouseEvent.MOUSE_MOVED) {
-            MouseEvent me = (MouseEvent) event;
-            if (hasFocus && me.getXOnScreen() <= 1) {
-                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                try {
-                    server.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 1) + " " + tk.getSystemClipboard().getData(DataFlavor.stringFlavor));
-                } catch (UnsupportedFlavorException | IOException e) {
-                    e.printStackTrace();
-                }
-                hasFocus = false;
-                robot.mouseMove((int) (tk.getScreenSize().getWidth() - 1), me.getYOnScreen());
-            } else if (!hasFocus && me.getXOnScreen() >= tk.getScreenSize().width - 1) {
-                f.setBounds(0, 0, 1, (int) tk.getScreenSize().getHeight());
-                robot.mouseMove(1, me.getYOnScreen());
-                server.getPrintWriter().println((AWTEvent.RESERVED_ID_MAX + 2));
-                hasFocus = true;
-            }
+        if (event.getID() == AWTEvent.KEY_EVENT_MASK) {
+            System.out.println(event);
         }
-        System.out.println(event.getClass());
-        if (event.getClass() == MouseEvent.class) {
-            MouseEvent me = (MouseEvent) event;
-            server.getPrintWriter().println(event.getID() + " " + me.getXOnScreen() + " " + me.getYOnScreen() + " " + me.getButton());
-            me.consume();
-        } else if (event.getClass() == MouseWheelEvent.class) {
-            MouseWheelEvent mwe = (MouseWheelEvent) event;
-            server.getPrintWriter().println(event.getID() + " " + mwe.getWheelRotation());
-            mwe.consume();
-        } else if (event.getClass() == KeyEvent.class) {
-            KeyEvent ke = (KeyEvent) event;
-            server.getPrintWriter().println(event.getID() + " " + ke.getKeyCode());
-            ke.consume();
-        }
-        System.out.println(event.paramString());
     }
 }
