@@ -78,6 +78,7 @@ public class Sender implements AWTEventListener {
             } else if (me.getXOnScreen() > tk.getScreenSize().getWidth() - 10 && !hasFocus) {
                 hasFocus = true;
                 f.setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
+                robot.mouseMove(10, me.getYOnScreen());
             }
         }
         try {
