@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
-public class Receiver extends  IoManager{
+public class Receiver extends IoManager {
     private JFrame f;
     private Client client;
     private Robot robot;
@@ -23,6 +23,7 @@ public class Receiver extends  IoManager{
 
     @Override
     public void send(Object o) {
+        super.send(o);
         try {
             client.send(o);
         } catch (IOException e) {

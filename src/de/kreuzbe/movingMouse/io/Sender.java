@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
-public class Sender extends  IoManager {
+public class Sender extends IoManager {
     private static Toolkit tk = Toolkit.getDefaultToolkit();
 
     private Server server;
@@ -26,9 +26,9 @@ public class Sender extends  IoManager {
     }
 
 
-
     @Override
     public void send(Object o) {
+        super.send(o);
         try {
             server.send(o);
         } catch (IOException e) {
@@ -42,7 +42,8 @@ public class Sender extends  IoManager {
             MouseEvent me = (MouseEvent) event;
             if (me.getXOnScreen() < 10 && hasFocus) {
                 hasFocus = false;
-                getFrame().setExtendedState(Frame.MAXIMIZED_BOTH);getRobot().mouseMove((int) tk.getScreenSize().getWidth(), me.getYOnScreen());
+                getFrame().setExtendedState(Frame.MAXIMIZED_BOTH);
+                getRobot().mouseMove((int) tk.getScreenSize().getWidth(), me.getYOnScreen());
             } else if (me.getXOnScreen() > tk.getScreenSize().getWidth() - 10 && !hasFocus) {
                 hasFocus = true;
                 getFrame().setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
