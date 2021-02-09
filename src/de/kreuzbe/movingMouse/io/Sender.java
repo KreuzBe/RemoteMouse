@@ -25,7 +25,6 @@ public class Sender extends IoManager {
         server.setInputConsumer(this::processEvent);
     }
 
-
     @Override
     public void send(Object o) {
         super.send(o);
