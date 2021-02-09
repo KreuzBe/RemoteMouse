@@ -4,14 +4,10 @@ import de.kreuzbe.movingMouse.net.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.io.IOException;
 
 public class Receiver {
     private JFrame f;
@@ -28,7 +24,7 @@ public class Receiver {
                 KeyEvent ke = (KeyEvent) input;
                 if (ke.getID() == KeyEvent.KEY_PRESSED)
                     robot.keyPress(ke.getKeyCode());
-                else if (ke.getID() == KeyEvent.KEY_PRESSED)
+                else if (ke.getID() == KeyEvent.KEY_RELEASED)
                     robot.keyRelease(ke.getKeyCode());
             } else if (input instanceof MouseEvent) {
                 MouseEvent me = (MouseEvent) input;
