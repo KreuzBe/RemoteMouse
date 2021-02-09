@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 //        Server s = new Server(4444);
 //        Sender l = new Sender(s);
-//        Client cl = new Client("192.168.2.121", 4444);
-//        Receiver r = new Receiver(cl);
+        Client cl = new Client("192.168.2.121", 4444);
+        Receiver r = new Receiver(cl);
     }
 }

@@ -7,6 +7,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.Key;
 
 public abstract class IoManager implements AWTEventListener {
     private static final Toolkit tk = Toolkit.getDefaultToolkit();
@@ -68,7 +69,12 @@ public abstract class IoManager implements AWTEventListener {
     @Override
     public void eventDispatched(AWTEvent event) {
         send(event);
-        sendClipboard();
+        if (event instanceof KeyEvent) {
+            KeyEvent ke = (KeyEvent) event;
+            if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                sendClipboard();
+            }
+        }
     }
 
     public JFrame getFrame() {
