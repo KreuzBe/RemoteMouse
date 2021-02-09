@@ -13,58 +13,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
-public class Sender implements AWTEventListener {
+public class Sender extends  IoManager {
     private static Toolkit tk = Toolkit.getDefaultToolkit();
 
     private Server server;
-
-    private Robot robot;
-
-    private JFrame f;
     private boolean hasFocus = true;
 
     public Sender(Server server) {
+        super();
         this.server = server;
-        try {
-            robot = new Robot();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        server.setInputConsumer((input) -> {
-            if (input instanceof KeyEvent) {
-                KeyEvent ke = (KeyEvent) input;
-                if (ke.getID() == KeyEvent.KEY_PRESSED)
-                    robot.keyPress(ke.getKeyCode());
-                else if (ke.getID() == KeyEvent.KEY_PRESSED)
-                    robot.keyRelease(ke.getKeyCode());
-            } else if (input instanceof MouseEvent) {
-                MouseEvent me = (MouseEvent) input;
-                if (me.getID() == MouseEvent.MOUSE_MOVED || me.getID() == MouseEvent.MOUSE_DRAGGED)
-                    robot.mouseMove(me.getXOnScreen(), me.getYOnScreen());
-                else if (me.getID() == MouseEvent.MOUSE_PRESSED)
-                    robot.mousePress(me.getButton());
-                else if (me.getID() == MouseEvent.MOUSE_RELEASED)
-                    robot.mouseRelease(me.getButton());
-                else if (me.getID() == MouseEvent.MOUSE_WHEEL)
-                    robot.mouseWheel(((MouseWheelEvent) me).getWheelRotation());
-            }
-        });
-
-        tk.addAWTEventListener(this, AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
-        f = new JFrame();
-
-        initFrame();
+        server.setInputConsumer(this::processEvent);
     }
 
-    private void initFrame() {
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
-        f.setResizable(false);
-        f.setAlwaysOnTop(true);
-        f.setUndecorated(true);
-        f.setOpacity(0.2f);
-        f.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-        f.setVisible(true);
+
+
+    @Override
+    public void send(Object o) {
+        try {
+            server.send(o);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -73,18 +42,13 @@ public class Sender implements AWTEventListener {
             MouseEvent me = (MouseEvent) event;
             if (me.getXOnScreen() < 10 && hasFocus) {
                 hasFocus = false;
-                f.setExtendedState(Frame.MAXIMIZED_BOTH);
-                robot.mouseMove((int) tk.getScreenSize().getWidth(), me.getYOnScreen());
+                getFrame().setExtendedState(Frame.MAXIMIZED_BOTH);getRobot().mouseMove((int) tk.getScreenSize().getWidth(), me.getYOnScreen());
             } else if (me.getXOnScreen() > tk.getScreenSize().getWidth() - 10 && !hasFocus) {
                 hasFocus = true;
-                f.setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
-                robot.mouseMove(10, me.getYOnScreen());
+                getFrame().setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
+                getRobot().mouseMove(10, me.getYOnScreen());
             }
         }
-        try {
-            server.send(event);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super.eventDispatched(event);
     }
 }
