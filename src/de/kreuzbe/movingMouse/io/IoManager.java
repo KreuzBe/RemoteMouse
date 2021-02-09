@@ -27,7 +27,7 @@ public abstract class IoManager implements AWTEventListener {
 
         initFrame();
     }
-//
+
 //    public void sendClipboard() {
 //        DataFlavor[] t = tk.getSystemClipboard().getAvailableDataFlavors();
 //        ClipboardContainer cc = new ClipboardContainer();
