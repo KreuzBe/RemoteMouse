@@ -1,6 +1,5 @@
 package de.kreuzbe.movingMouse;
 
-import de.kreuzbe.movingMouse.io.IoManager;
 import de.kreuzbe.movingMouse.io.Receiver;
 import de.kreuzbe.movingMouse.net.Client;
 

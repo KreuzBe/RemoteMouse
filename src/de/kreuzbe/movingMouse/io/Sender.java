@@ -27,7 +27,6 @@ public class Sender extends IoManager {
 
     @Override
     public void send(Object o) {
-        super.send(o);
         try {
             server.send(o);
         } catch (IOException e) {

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Receiver extends IoManager {
     private JFrame f;
-    private Client client;
+    private final Client client;
     private Robot robot;
 
     public Receiver(Client client) {
@@ -23,7 +23,6 @@ public class Receiver extends IoManager {
 
     @Override
     public void send(Object o) {
-        super.send(o);
         try {
             client.send(o);
         } catch (IOException e) {
