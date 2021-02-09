@@ -44,8 +44,10 @@ public class Client {
             if (!socket.isConnected())
                 break;
             try {
-                if (inputConsumer != null)
+                if (inputConsumer != null) {
                     inputConsumer.accept(in.readObject());
+                    System.out.println(".");
+                }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 System.exit(0);

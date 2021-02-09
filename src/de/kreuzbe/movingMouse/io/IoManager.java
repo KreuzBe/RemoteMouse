@@ -27,21 +27,21 @@ public abstract class IoManager implements AWTEventListener {
 
         initFrame();
     }
-
-    public void sendClipboard() {
-        DataFlavor[] t = tk.getSystemClipboard().getAvailableDataFlavors();
-        ClipboardContainer cc = new ClipboardContainer();
-        for (DataFlavor f : t) {
-            try {
-                if (Serializable.class.isAssignableFrom(tk.getSystemClipboard().getData(f).getClass())) {
-                    cc.put(f, (Serializable) tk.getSystemClipboard().getData(f));
-                }
-            } catch (UnsupportedFlavorException | IOException e) {
-                //  e.printStackTrace();
-            }
-        }
-        send(cc);
-    }
+//
+//    public void sendClipboard() {
+//        DataFlavor[] t = tk.getSystemClipboard().getAvailableDataFlavors();
+//        ClipboardContainer cc = new ClipboardContainer();
+//        for (DataFlavor f : t) {
+//            try {
+//                if (Serializable.class.isAssignableFrom(tk.getSystemClipboard().getData(f).getClass())) {
+//                    cc.put(f, (Serializable) tk.getSystemClipboard().getData(f));
+//                }
+//            } catch (UnsupportedFlavorException | IOException e) {
+//                //  e.printStackTrace();
+//            }
+//        }
+//        send(cc);
+//    }
 
 
     public void processEvent(Object input) {
@@ -73,7 +73,7 @@ public abstract class IoManager implements AWTEventListener {
         if (event instanceof KeyEvent) {
             KeyEvent ke = (KeyEvent) event;
             if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                sendClipboard();
+//                sendClipboard();
             }
         }
     }
