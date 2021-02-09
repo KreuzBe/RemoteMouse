@@ -1,9 +1,9 @@
 package de.kreuzbe.movingMouse.net;
 
-import java.io.*;
-import java.net.ServerSocket;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.function.Consumer;
 
 public class Client {
@@ -40,15 +40,12 @@ public class Client {
 
     private void listen() {
         boolean isRunning = true;
-        while (isRunning) {
-
+        while (true) {
             if (!socket.isConnected())
                 break;
             try {
                 if (inputConsumer != null)
                     inputConsumer.accept(in.readObject());
-                else
-                    System.out.println(">> " + in.readObject().toString());
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 System.exit(0);
