@@ -39,7 +39,7 @@ public abstract class IoManager implements AWTEventListener {
                 //  e.printStackTrace();
             }
         }
-        send(cc);
+       // send(cc);
     }
 
     public void processEvent(Object input) {
