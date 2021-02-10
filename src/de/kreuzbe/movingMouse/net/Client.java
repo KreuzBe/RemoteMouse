@@ -41,8 +41,8 @@ public class Client {
     private void listen() {
         boolean isRunning = true;
         while (isRunning) {
-            if (!socket.isConnected())
-                break;
+
+
             try {
                 if (inputConsumer != null)
                     inputConsumer.accept(in.readObject());

@@ -7,10 +7,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class Sender extends IoManager {
-    private final static Toolkit tk = Toolkit.getDefaultToolkit();
     private final Server server;
-    private boolean hasFocus = true;
-
 
     public Sender(Server server) {
         super();
