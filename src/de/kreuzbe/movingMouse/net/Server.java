@@ -50,16 +50,12 @@ public class Server {
 
             try {
                 if (inputConsumer != null) {
-                    BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(clientSocket.getInputStream()));
-                    if (img == null)
-                        inputConsumer.accept(in.readObject());
-                    else
-                        inputConsumer.accept(img);
+                    inputConsumer.accept(in.readObject());
                 } else
                     Thread.sleep(10);
             } catch (IOException | ClassNotFoundException | InterruptedException e) {
                 e.printStackTrace();
-               // break;
+                // break;
             }
         }
         try {
