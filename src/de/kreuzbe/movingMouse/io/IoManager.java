@@ -42,7 +42,6 @@ public abstract class IoManager implements AWTEventListener {
         send(cc);
     }
 
-
     public void processEvent(Object input) {
         if (input instanceof ClipboardContainer) {
             tk.getSystemClipboard().setContents((ClipboardContainer) input, null);
@@ -67,7 +66,7 @@ public abstract class IoManager implements AWTEventListener {
 
     @Override
     public void eventDispatched(AWTEvent event) {
-        sendClipboard();
+        //sendClipboard();
         send(event);
     }
 
