@@ -63,6 +63,7 @@ public class Server {
     }
 
     public void send(Object o) throws IOException {
+        System.out.println("Server send: " + o.getClass());
         out.writeObject(o);
     }
 }
