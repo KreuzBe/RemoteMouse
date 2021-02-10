@@ -14,6 +14,7 @@ public class Receiver extends IoManager {
     private final Client client;
 
     public Receiver(Client client) {
+        super();
         this.client = client;
         client.setInputConsumer(this::processEvent);
         getFrame().setBounds(0, 0, 10, 10);

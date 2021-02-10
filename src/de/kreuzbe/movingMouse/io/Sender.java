@@ -13,6 +13,7 @@ public class Sender extends IoManager {
 
 
     public Sender(Server server) {
+        super();
         this.server = server;
         server.setInputConsumer(this::processEvent);
     }
@@ -20,6 +21,7 @@ public class Sender extends IoManager {
 
     @Override
     public void send(Object o) {
+        System.out.println("Send");
         try {
             server.send(o);
         } catch (IOException e) {
