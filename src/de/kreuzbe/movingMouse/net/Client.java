@@ -46,7 +46,9 @@ public class Client {
             try {
                 if (inputConsumer != null)
                     inputConsumer.accept(in.readObject());
-            } catch (IOException | ClassNotFoundException e) {
+                else
+                    Thread.sleep(10);
+            } catch (IOException | ClassNotFoundException | InterruptedException e) {
                 e.printStackTrace();
                 break;
             }
