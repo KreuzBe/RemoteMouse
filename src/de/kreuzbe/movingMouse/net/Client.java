@@ -40,13 +40,12 @@ public class Client {
 
     private void listen() {
         boolean isRunning = true;
-        while (true) {
+        while (isRunning) {
             if (!socket.isConnected())
                 break;
             try {
                 if (inputConsumer != null) {
                     inputConsumer.accept(in.readObject());
-                    System.out.println(".");
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

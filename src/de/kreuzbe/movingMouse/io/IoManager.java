@@ -90,9 +90,7 @@ public abstract class IoManager implements AWTEventListener {
         frame.setVisible(true);
     }
 
-    public void send(Object o) {
-        System.out.println("Send: " + o.getClass());
-    }
+    public abstract void send(Object o);
 
 
 }
