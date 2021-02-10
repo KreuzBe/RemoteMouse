@@ -36,6 +36,7 @@ public class Sender extends IoManager {
 
     @Override
     public void eventDispatched(AWTEvent event) {
+        System.out.println("hasFocus: " + hasFocus);
         if (event instanceof MouseEvent) {
             MouseEvent me = (MouseEvent) event;
             if (me.getXOnScreen() < 10 && hasFocus) {
