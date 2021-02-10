@@ -44,7 +44,11 @@ public abstract class IoManager implements AWTEventListener {
 
     public void processEvent(Object input) {
         if (input instanceof ClipboardContainer) {
-            tk.getSystemClipboard().setContents((ClipboardContainer) input, null);
+            try {
+                tk.getSystemClipboard().setContents((ClipboardContainer) input, null);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         } else if (input instanceof KeyEvent) {
             KeyEvent ke = (KeyEvent) input;
             if (ke.getID() == KeyEvent.KEY_PRESSED)
