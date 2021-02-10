@@ -14,10 +14,8 @@ import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
 public class Sender extends IoManager {
-    private static Toolkit tk = Toolkit.getDefaultToolkit();
 
     private Server server;
-    private boolean hasFocus = true;
 
     public Sender(Server server) {
         super();

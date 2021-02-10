@@ -64,6 +64,5 @@ public class Server {
 
     public void send(Object o) throws IOException {
         out.writeObject(o);
-        out.flush();
     }
 }

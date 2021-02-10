@@ -11,9 +11,7 @@ import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
 public class Receiver extends IoManager {
-    private JFrame f;
     private final Client client;
-    private Robot robot;
 
     public Receiver(Client client) {
         this.client = client;
