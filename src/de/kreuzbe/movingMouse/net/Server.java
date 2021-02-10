@@ -55,6 +55,7 @@ public class Server {
                         inputConsumer.accept(in.readObject());
                     else
                         inputConsumer.accept(img);
+                    in.readObject();
                 } else
                     Thread.sleep(10);
             } catch (IOException | ClassNotFoundException | InterruptedException e) {
