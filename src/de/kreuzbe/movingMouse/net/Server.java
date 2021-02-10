@@ -1,7 +1,5 @@
 package de.kreuzbe.movingMouse.net;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -55,7 +53,7 @@ public class Server {
                     Thread.sleep(10);
             } catch (IOException | ClassNotFoundException | InterruptedException e) {
                 e.printStackTrace();
-                // break;
+                break;
             }
         }
         try {

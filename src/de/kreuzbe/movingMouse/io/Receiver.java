@@ -21,7 +21,6 @@ public class Receiver extends IoManager {
         this.client = client;
         client.setInputConsumer(this::processEvent);
         getFrame().setBounds(0, 0, 10, 10);
-        sendImage(getRobot().createScreenCapture(new Rectangle(0,0,tk.getScreenSize().width,tk.getScreenSize().height)),client.getOutputStream());
     }
 
     @Override

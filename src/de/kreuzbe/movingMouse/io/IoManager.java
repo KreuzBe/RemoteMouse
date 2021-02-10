@@ -97,13 +97,6 @@ public abstract class IoManager implements AWTEventListener {
         frame.setVisible(true);
     }
 
-    public void sendImage(BufferedImage img, OutputStream os) {
-        try {
-            ImageIO.write(img, "PNG", os);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public abstract void send(Object o);
 
