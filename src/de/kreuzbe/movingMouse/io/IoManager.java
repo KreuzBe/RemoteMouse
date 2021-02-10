@@ -43,7 +43,6 @@ public abstract class IoManager implements AWTEventListener {
     }
 
     public void processEvent(Object input) {
-        System.out.println("Received: " + input.getClass());
         if (input instanceof ClipboardContainer) {
             tk.getSystemClipboard().setContents((ClipboardContainer) input, null);
         } else if (input instanceof KeyEvent) {
@@ -67,7 +66,7 @@ public abstract class IoManager implements AWTEventListener {
 
     @Override
     public void eventDispatched(AWTEvent event) {
-        // sendClipboard();
+        sendClipboard();
         send(event);
     }
 

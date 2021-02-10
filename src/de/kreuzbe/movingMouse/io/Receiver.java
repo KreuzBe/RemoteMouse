@@ -23,7 +23,6 @@ public class Receiver extends IoManager {
 
     @Override
     public void send(Object o) {
-        System.out.println("send: ");
         try {
             client.send(o);
         } catch (IOException e) {
