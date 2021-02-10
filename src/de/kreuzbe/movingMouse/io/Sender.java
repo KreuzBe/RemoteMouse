@@ -15,6 +15,7 @@ public class Sender extends IoManager {
 
     @Override
     public void send(Object o) {
+        System.out.println("Send: " + o.getClass());
         try {
             server.send(o);
         } catch (IOException e) {
