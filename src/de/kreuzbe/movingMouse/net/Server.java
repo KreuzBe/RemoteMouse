@@ -49,7 +49,6 @@ public class Server {
             try {
                 if (inputConsumer != null)
                     inputConsumer.accept(in.readObject());
-                System.out.println(in.readObject());
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 break;
@@ -63,7 +62,6 @@ public class Server {
     }
 
     public void send(Object o) throws IOException {
-        System.out.println("Server send: " + o.getClass());
         out.writeObject(o);
     }
 }

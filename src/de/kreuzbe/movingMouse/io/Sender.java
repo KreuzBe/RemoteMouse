@@ -17,7 +17,6 @@ public class Sender extends IoManager {
         server.setInputConsumer(this::processEvent);
     }
 
-
     @Override
     public void eventDispatched(AWTEvent event) {
         if (event instanceof MouseEvent) {
