@@ -67,7 +67,7 @@ public abstract class IoManager implements AWTEventListener {
 
     @Override
     public void eventDispatched(AWTEvent event) {
-        System.out.println("eventDispatched: " + event.getClass());
+        sendClipboard();
         send(event);
     }
 
