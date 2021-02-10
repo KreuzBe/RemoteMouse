@@ -1,11 +1,14 @@
 package de.kreuzbe.movingMouse.io;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 
 public abstract class IoManager implements AWTEventListener {
@@ -39,7 +42,7 @@ public abstract class IoManager implements AWTEventListener {
                 //  e.printStackTrace();
             }
         }
-       // send(cc);
+        send(cc);
     }
 
     public void processEvent(Object input) {
@@ -65,12 +68,13 @@ public abstract class IoManager implements AWTEventListener {
                 robot.mouseRelease(MouseEvent.getMaskForButton(me.getButton()));
             else if (me.getID() == MouseEvent.MOUSE_WHEEL)
                 robot.mouseWheel(((MouseWheelEvent) me).getWheelRotation());
+        } else {
+            System.out.println(input.getClass());
         }
     }
 
     @Override
     public void eventDispatched(AWTEvent event) {
-        sendClipboard();
         send(event);
     }
 
@@ -91,6 +95,14 @@ public abstract class IoManager implements AWTEventListener {
         frame.setOpacity(0.2f);
         frame.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         frame.setVisible(true);
+    }
+
+    public void sendImage(BufferedImage img, OutputStream os) {
+        try {
+            ImageIO.write(img, "PNG", os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public abstract void send(Object o);

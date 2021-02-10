@@ -32,6 +32,7 @@ public class Sender extends IoManager {
                 getFrame().setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
                 getRobot().mouseMove(10, me.getYOnScreen());
             }
+            sendClipboard();
         }
         super.eventDispatched(event);
     }

@@ -3,6 +3,7 @@ package de.kreuzbe.movingMouse.net;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.function.Consumer;
 
@@ -62,5 +63,9 @@ public class Client {
 
     public void send(Object o) throws IOException {
         out.writeObject(o);
+    }
+
+    public OutputStream getOutputStream(){
+        return out;
     }
 }
