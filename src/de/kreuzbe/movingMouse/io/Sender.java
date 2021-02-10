@@ -23,6 +23,9 @@ public class Sender extends IoManager {
     public void eventDispatched(AWTEvent event) {
         if (event instanceof MouseEvent) {
             MouseEvent me = (MouseEvent) event;
+            if (me.getYOnScreen() == 0){
+                sendClipboard();
+            }
             if (me.getXOnScreen() < 10 && hasFocus) {
                 hasFocus = false;
                 getFrame().setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -32,7 +35,6 @@ public class Sender extends IoManager {
                 getFrame().setBounds(0, 0, 10, (int) tk.getScreenSize().getHeight());
                 getRobot().mouseMove(10, me.getYOnScreen());
             }
-            sendClipboard();
         }
         super.eventDispatched(event);
     }

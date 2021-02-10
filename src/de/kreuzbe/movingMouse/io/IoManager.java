@@ -68,8 +68,6 @@ public abstract class IoManager implements AWTEventListener {
                 robot.mouseRelease(MouseEvent.getMaskForButton(me.getButton()));
             else if (me.getID() == MouseEvent.MOUSE_WHEEL)
                 robot.mouseWheel(((MouseWheelEvent) me).getWheelRotation());
-        } else {
-            System.out.println(input.getClass());
         }
     }
 
