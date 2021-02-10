@@ -50,7 +50,7 @@ public class Server {
 
             try {
                 if (inputConsumer != null) {
-                    BufferedImage img = ImageIO.read(in);
+                    BufferedImage img = ImageIO.read(ImageIO.createImageInputStream(in));
                     if (img == null)
                         inputConsumer.accept(in.readObject());
                     else
